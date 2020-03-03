@@ -15,9 +15,9 @@ int main(void){
     }
     scanf("%d %d", &b, &c);
 
-    long long answer = 0;
+    long long answer = n;
     for(int i = 0; i < n; i++){
-        a[i] -= b; answer++;
+        a[i] -= b;
         if(a[i] > 0){
             int sub = 0;
             sub = a[i] / c;
