@@ -1,3 +1,11 @@
+/*
+    DFS로 깊이 4까지 모두 탐색하고, ㅏ ㅓ ㅗ ㅜ 모양은 따로 처리해야 함
+    처음에 DFS 탐색을 하는 것까지는 단 번에 알아챘으나,
+    Testcase를 보고 ㅏ ㅓ ㅗ ㅜ 를 따로 처리해야 함을 인지함
+
+    따라서 depth == 2 일 때, 바로 옆을 붙여줄 수 있으면 붙이고 dfs(depth + 2)로 해결
+*/
+
 #include <iostream>
 #include <algorithm>
 
