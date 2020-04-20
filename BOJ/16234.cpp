@@ -1,3 +1,8 @@
+/*
+    map은 해당 영역별 인구이동 후 존재하는 사람 수를 담고 있음.
+    그러나 인구이동이 끝나고나서 m.clear()를 깜빡하여, 한 번에 못 품
+*/
+
 #include <iostream>
 #include <cstring>
 #include <algorithm>
@@ -50,6 +55,7 @@ int main(void){
     int answer = 0;
     while(1){
         memset(check, 0, sizeof(check));
+        m.clear();
 
         int areaCnt = 1;
         bool endCheck = true;
@@ -78,7 +84,6 @@ int main(void){
                 map[i][j] = iter->second;
             }
         }
-        m.clear();
 
         answer++;
     }
