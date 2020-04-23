@@ -1,6 +1,8 @@
 /*
-    풀이 1 : DFS
-    cnt[] 배열을 모두 살펴보면서, 처음 지점으로 되돌아가는 재귀호출 수행
+    풀이 2 : 이전 경로 저장 후 재귀
+
+    from 배열에 어디로 부터 왔는지에 대한 경로를 저장
+    from 배열을 이용해서 재귀적으로 탐색 후 반대로 출력 (순서대로 출력하면 반대이므로)
 */
 
 #include <iostream>
@@ -10,39 +12,14 @@ using namespace std;
 
 int n, k;
 int cnt[100001] = { 0, };
+int from[100001] = { 0, };
 int direction[2] = { -1, 1 };
 
-bool flag = false;
-void dfs(int depth, vector<int>& vec){
-    if(flag) return;
-
-    int cur = vec.back();
-
-    if(depth == 1){
-        for(int i = vec.size() - 1; i >= 0; i--){
-            cout << vec[i] << " ";
-        }
-        flag = true;
-        return;
-    }
-
-    for(int i = 0; i < 3; i++){
-        int next;
-        if(i == 2){
-            if(cur % 2 != 0) continue;
-            
-            next = cur / 2;
-        } 
-        else{
-            next = cur + direction[i];
-        }
-
-        if(next >= 0 && next <= 100000 && cnt[next] == depth - 1){
-            vec.push_back(next);
-            dfs(depth - 1, vec);
-            vec.pop_back();
-        }
-    }
+// from[k] -> from[n]
+void dfs(int cur, int target){
+    if(cur != target) dfs(from[cur], target);
+    
+    cout << cur << " ";
 }
 
 int main(void){
@@ -56,10 +33,7 @@ int main(void){
 
         if(cur == k){
             cout << cnt[cur] - 1 << endl;
-            
-            vector<int> vec;
-            vec.push_back(cur);
-            dfs(cnt[cur], vec);
+            dfs(cur, n);
             return 0;
         }
 
@@ -70,6 +44,7 @@ int main(void){
 
             if(next >= 0 && next <= 100000 && !cnt[next]){
                 cnt[next] = cnt[cur] + 1;
+                from[next] = cur;
                 q.push(next);
             }
         }
